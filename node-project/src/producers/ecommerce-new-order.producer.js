@@ -1,4 +1,6 @@
-export async function producerMessage(kafka) {
+import { kafka } from "../configs/kafka.config.js";
+
+async function run() {
   const producer = kafka.producer();
 
   await producer.connect();
@@ -16,3 +18,5 @@ export async function producerMessage(kafka) {
 
   await producer.disconnect();
 }
+
+run();

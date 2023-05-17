@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "consumer:run": "node src/index.js",
+    "producer:new-order": "node src/producers/ecommerce-new-order.producer.js"
   },
   "keywords": [
     "kafka",
