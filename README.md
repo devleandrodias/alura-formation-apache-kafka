@@ -23,9 +23,25 @@
 
 > sh bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic ECOMMERCE_NEW_ORDER
 
+## Deleting a topic
+
+> sh bin/kafka-topics.sh --bootstrap-server localhost:9092 --topic ECOMMERCE_NEW_ORDER --delete
+
+## Describing a topic
+
+> sh bin/kafka-topics.sh --describe --bootstrap-server localhost:9092
+
+## Reparting a topic
+
+> sh bin/kafka-topics.sh --alter --bootstrap-server localhost:9092 --topic ECOMMERCE_NEW_ORDER --partitions 3
+
 ## Listing topics
 
 > sh bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+
+## View consumers group
+
+> sh bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --all-groups --describe
 
 ## Create messages on producer
 
