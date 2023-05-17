@@ -1,27 +1,20 @@
-import { kafka } from "../configs/kafka.config.js";
-
 import { TOPICS } from "../topics.js";
 
+import { KafkaService } from "./KafkaService.js";
+
 async function run() {
-  const consumer = kafka.consumer({
-    groupId: "email-service",
-  });
+  const kafkaService = new KafkaService();
 
-  await consumer.connect();
-
-  await consumer.subscribe({
-    topic: TOPICS.ECOMMERCE_SEND_EMAIL,
-    fromBeginning: true,
-  });
-
-  await consumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
+  await kafkaService.consumer(
+    "email-service",
+    TOPICS.ECOMMERCE_SEND_EMAIL,
+    async ({ topic, partition, message }) => {
       console.log("---------------------------------------------");
       console.log("Sending email...");
       console.log({ topic, partition });
       console.log({ value: message.value.toString() });
-    },
-  });
+    }
+  );
 }
 
 run();
