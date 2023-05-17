@@ -1,24 +1,18 @@
-import { kafka } from "../configs/kafka.config.js";
+import { randomUUID } from "node:crypto";
 
 import { TOPICS } from "../topics.js";
 
+import { KafkaService } from "../services/KafkaService.js";
+
 async function run() {
-  const producer = kafka.producer();
+  const kafkaService = new KafkaService();
 
-  await producer.connect();
+  const key = randomUUID();
+  const value = "Thanks! We are processing your order!";
 
-  const responses = await producer.send({
-    topic: TOPICS.ECOMMERCE_SEND_EMAIL,
-    messages: [{ value: "Thanks! We are processing your order!" }],
-  });
-
-  responses.map((r) => {
-    console.info(
-      `Success: ${r.topicName} ::: partition ${r.partition} /offset ${r.offset} /timestamp ${r.timestamp}`
-    );
-  });
-
-  await producer.disconnect();
+  await kafkaService.producer(TOPICS.ECOMMERCE_SEND_EMAIL, key, value);
 }
 
-run();
+for (let index = 0; index < 10; index++) {
+  await run();
+}
