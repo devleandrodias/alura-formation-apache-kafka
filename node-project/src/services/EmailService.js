@@ -4,20 +4,20 @@ import { TOPICS } from "../topics.js";
 
 async function run() {
   const consumer = kafka.consumer({
-    groupId: "fraud-detector-service",
+    groupId: "email-service",
   });
 
   await consumer.connect();
 
   await consumer.subscribe({
-    topic: TOPICS.ECOMMERCE_NEW_ORDER,
+    topic: TOPICS.ECOMMERCE_SEND_EMAIL,
     fromBeginning: true,
   });
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       console.log("---------------------------------------------");
-      console.log("Processing new order, checking for a fraud...");
+      console.log("Sending email...");
       console.log({ topic, partition });
       console.log({ value: message.value.toString() });
     },
