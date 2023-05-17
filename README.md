@@ -1,24 +1,36 @@
 # Alura Formation - Apache Kafka
 
-## Docker configurations
+## Dependencies
 
-- bitnami/kafka:2.8.1
-- bitnami/zookeeper:3.8.1
+- docker (https://docs.docker.com)
+- kafka (https://kafka.apache.org/downloads)
+- kafka-ui (https://github.com/provectus/kafka-ui)
+- zookeeper (https://zookeeper.apache.org)
+
+## Stating Zookeeper server
+
+> sh bin/zookeeper-server-start.sh config/zookeeper.properties
+
+## Stating Kafka server
+
+> sh bin/kafka-server-start.sh config/server.properties
+
+## Starting Kafka UI
 
 > docker-compose up -d
 
 ## Creating a new topic
 
-> sh bin/kafka-topics.sh --create --bootrstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO
+> sh bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic ECOMMERCE_NEW_ORDER
 
 ## Listing topics
 
-> sh bin/kafka-topics.sh --list --boostratp-server localhost:9092
+> sh bin/kafka-topics.sh --list --bootstrap-server localhost:9092
 
 ## Create messages on producer
 
-> sh bin/kafka-console-producer.sh --broker-list localhost:9092 --topic LOJA_NOVO_PEDIDO
+> sh bin/kafka-console-producer.sh --broker-list localhost:9092 --topic ECOMMERCE_NEW_ORDER
 
 ## Consume messsages on consumer
 
-> sh bin/kafka-console.consumer.sh --boostratp-server localhost:9092 --topic LOJA_NOVO_PEDIDO --from-beginning
+> sh bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic ECOMMERCE_NEW_ORDER --from-beginning
