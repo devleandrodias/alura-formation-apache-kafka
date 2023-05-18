@@ -1,4 +1,9 @@
-import { EachMessagePayload, Message } from "kafkajs";
+import {
+  Message,
+  ConsumerConfig,
+  EachMessagePayload,
+  ConsumerSubscribeTopics,
+} from "kafkajs";
 
 export type KafkaProducer = {
   topic: string;
@@ -6,7 +11,7 @@ export type KafkaProducer = {
 };
 
 export type KafkaConsumer = {
-  groupId: string;
-  topic: string;
+  consumerConfig: ConsumerConfig;
+  subscription: ConsumerSubscribeTopics;
   eachMessage: (payload: EachMessagePayload) => Promise<void>;
 };

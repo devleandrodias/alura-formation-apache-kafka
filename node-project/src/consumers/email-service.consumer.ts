@@ -5,8 +5,12 @@ async function run() {
   const kafkaService = new KafkaService();
 
   await kafkaService.consumer({
-    groupId: "email-service",
-    topic: EKafkaTopics.ECOMMERCE_SEND_EMAIL,
+    consumerConfig: {
+      groupId: "email-service",
+    },
+    subscription: {
+      topics: [EKafkaTopics.ECOMMERCE_SEND_EMAIL],
+    },
     eachMessage: async ({ topic, partition, message }) => {
       console.log("---------------------------------------------");
       console.log("Sending email...");

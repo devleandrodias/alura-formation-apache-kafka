@@ -5,8 +5,12 @@ async function run() {
   const kafkaService = new KafkaService();
 
   await kafkaService.consumer({
-    groupId: "fraud-detector-service",
-    topic: EKafkaTopics.ECOMMERCE_NEW_ORDER,
+    consumerConfig: {
+      groupId: "fraud-detector-service",
+    },
+    subscription: {
+      topics: [EKafkaTopics.ECOMMERCE_NEW_ORDER],
+    },
     eachMessage: async ({ topic, partition, message }) => {
       console.log("---------------------------------------------");
       console.log("Processing new order, checking for a fraud...");

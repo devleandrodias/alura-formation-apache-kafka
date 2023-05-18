@@ -1,18 +1,15 @@
-import { kafka } from "../configs/kafka.config";
+import { KafkaService } from "../configs/kafka.service";
 
 async function run() {
-  const consumer = kafka.consumer({
-    groupId: "log-service",
-  });
+  const kafkaService = new KafkaService();
 
-  await consumer.connect();
-
-  await consumer.subscribe({
-    topics: [new RegExp(/^ECOMMERCE.*/)],
-    fromBeginning: true,
-  });
-
-  await consumer.run({
+  kafkaService.consumer({
+    consumerConfig: {
+      groupId: "log-service",
+    },
+    subscription: {
+      topics: [new RegExp(/^ECOMMERCE.*/)],
+    },
     eachMessage: async ({ topic, partition, message }) => {
       console.log("---------------------------------------------");
       console.log(`Logging from topic [${topic}] - [${partition}]`);

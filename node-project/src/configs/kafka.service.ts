@@ -16,11 +16,11 @@ export class KafkaService {
     await producer.disconnect();
   }
 
-  async consumer({ topic, groupId, eachMessage }: KafkaConsumer) {
-    const consumer = kafka.consumer({ groupId });
+  async consumer({ consumerConfig, subscription, eachMessage }: KafkaConsumer) {
+    const consumer = kafka.consumer(consumerConfig);
 
     await consumer.connect();
-    await consumer.subscribe({ topic, fromBeginning: true });
+    await consumer.subscribe(subscription);
     await consumer.run({ eachMessage });
   }
 }
