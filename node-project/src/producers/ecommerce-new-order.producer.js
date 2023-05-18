@@ -1,8 +1,7 @@
 import { randomUUID } from "node:crypto";
 
-import { TOPICS } from "../topics.js";
-
-import { KafkaService } from "../services/KafkaService.js";
+import { KafkaTopics } from "../configs/kafka.topics.js";
+import { KafkaService } from "../configs/kafka.service.js";
 
 async function run() {
   const kafkaService = new KafkaService();
@@ -10,7 +9,7 @@ async function run() {
   const key = randomUUID();
   const value = `${key}12563,54856,7856378`;
 
-  await kafkaService.producer(TOPICS.ECOMMERCE_NEW_ORDER, key, value);
+  await kafkaService.producer(KafkaTopics.ECOMMERCE_NEW_ORDER, key, value);
 }
 
 for (let index = 0; index < 100; index++) {

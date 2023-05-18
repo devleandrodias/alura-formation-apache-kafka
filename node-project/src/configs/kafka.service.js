@@ -1,4 +1,4 @@
-import { kafka } from "../configs/kafka.config.js";
+import { kafka } from "./kafka.config.js";
 
 export class KafkaService {
   async producer(topic, key, value) {

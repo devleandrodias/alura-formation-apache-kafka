@@ -1,13 +1,12 @@
-import { TOPICS } from "../topics.js";
-
-import { KafkaService } from "../services/KafkaService.js";
+import { KafkaTopics } from "../configs/kafka.topics.js";
+import { KafkaService } from "../configs/kafka.service.js";
 
 async function run() {
   const kafkaService = new KafkaService();
 
   await kafkaService.consumer(
     "fraud-detector-service",
-    TOPICS.ECOMMERCE_NEW_ORDER,
+    KafkaTopics.ECOMMERCE_NEW_ORDER,
     async ({ topic, partition, message }) => {
       console.log("---------------------------------------------");
       console.log("Processing new order, checking for a fraud...");

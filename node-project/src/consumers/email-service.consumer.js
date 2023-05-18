@@ -1,13 +1,12 @@
-import { TOPICS } from "../topics.js";
-
-import { KafkaService } from "./KafkaService.js";
+import { KafkaTopics } from "../configs/kafka.topics.js";
+import { KafkaService } from "../configs/kafka.service.js";
 
 async function run() {
   const kafkaService = new KafkaService();
 
   await kafkaService.consumer(
     "email-service",
-    TOPICS.ECOMMERCE_SEND_EMAIL,
+    KafkaTopics.ECOMMERCE_SEND_EMAIL,
     async ({ topic, partition, message }) => {
       console.log("---------------------------------------------");
       console.log("Sending email...");

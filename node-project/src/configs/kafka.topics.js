@@ -1,4 +1,4 @@
-export const TOPICS = {
+export const KafkaTopics = {
   ECOMMERCE_NEW_ORDER: "ECOMMERCE_NEW_ORDER_NODE",
   ECOMMERCE_SEND_EMAIL: "ECOMMERCE_SEND_EMAIL_NODE",
 };
