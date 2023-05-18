@@ -1,7 +1,9 @@
-import { kafka } from "./kafka.config.js";
+import { EachMessagePayload } from "kafkajs";
+
+import { kafka } from "./kafka.config";
 
 export class KafkaService {
-  async producer(topic, key, value) {
+  async producer(topic: string, key: string, value: string) {
     const producer = kafka.producer();
 
     await producer.connect();
@@ -15,7 +17,11 @@ export class KafkaService {
     await producer.disconnect();
   }
 
-  async consumer(groupId, topic, eachMessage) {
+  async consumer(
+    groupId: string,
+    topic: string,
+    eachMessage: (payload: EachMessagePayload) => Promise<void>
+  ) {
     const consumer = kafka.consumer({ groupId });
 
     await consumer.connect();

@@ -1,4 +1,4 @@
-import { kafka } from "../configs/kafka.config.js";
+import { kafka } from "../configs/kafka.config";
 
 async function run() {
   const consumer = kafka.consumer({
@@ -16,7 +16,7 @@ async function run() {
     eachMessage: async ({ topic, partition, message }) => {
       console.log("---------------------------------------------");
       console.log(`Logging from topic [${topic}] - [${partition}]`);
-      console.log({ value: message.value.toString() });
+      console.log({ value: message?.value?.toString() });
     },
   });
 }

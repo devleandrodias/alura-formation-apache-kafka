@@ -2,12 +2,13 @@
   "name": "project",
   "version": "1.0.0",
   "description": "Ecommerce Kafka Broker",
-  "main": "index.js",
-  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "consumer:run": "node src/index.js",
-    "producer:new-order": "node src/producers/ecommerce-new-order.producer.js"
+    "build": "tsc",
+    "consumer:log": "npx ts-node-dev --respawn --transpile-only ./src/consumers/log-service.consumer.ts",
+    "consumer:email": "npx ts-node-dev --respawn --transpile-only ./src/consumers/email-service.consumer.ts",
+    "consumer:fraud-detector": "npx ts-node-dev --respawn --transpile-only ./src/consumers/fraud-detector-service.consumer.ts",
+    "producer:new-order": "npx ts-node-dev --respawn --transpile-only ./src/producers/ecommerce-new-order.producer.ts",
+    "producer:send-email": "npx ts-node-dev --respawn --transpile-only ./src/producers/ecommerce-send-email.producer.ts"
   },
   "keywords": [
     "kafka",
@@ -20,5 +21,9 @@
   "license": "ISC",
   "dependencies": {
     "kafkajs": "^2.2.4"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.4"
   }
 }
