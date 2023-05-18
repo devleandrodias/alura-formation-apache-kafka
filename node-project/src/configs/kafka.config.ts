@@ -1,6 +1,8 @@
 import { Kafka } from "kafkajs";
 
+import { envs } from "./envs.config";
+
 export const kafka = new Kafka({
-  clientId: "my-app",
-  brokers: ["127.0.0.1:9092"],
+  brokers: [envs.kafkaBroker],
+  clientId: envs.kafkaClientId,
 });
