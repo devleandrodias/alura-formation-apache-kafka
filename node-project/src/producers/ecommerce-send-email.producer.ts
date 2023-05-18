@@ -1,3 +1,4 @@
+import { Message } from "kafkajs";
 import { randomUUID } from "node:crypto";
 
 import { EKafkaTopics } from "../configs/kafka.topics";
@@ -9,7 +10,12 @@ async function run() {
   for (let index = 0; index < 10; index++) {
     const key = randomUUID();
     const value = "Thanks! We are processing your order!";
-    await kafkaService.producer(EKafkaTopics.ECOMMERCE_SEND_EMAIL, key, value);
+    const messages: Message[] = [{ key, value }];
+
+    await kafkaService.producer({
+      topic: EKafkaTopics.ECOMMERCE_SEND_EMAIL,
+      messages,
+    });
   }
 }
 
