@@ -1,22 +1,14 @@
 import { EKafkaTopics } from "../configs/kafka.topics";
 import { KafkaService } from "../configs/kafka.service";
 
+import { Order } from "../entities/Order";
+
 async function run() {
   const kafkaService = new KafkaService();
 
-  await kafkaService.consumer({
-    consumerConfig: {
-      groupId: "fraud-detector-service",
-    },
-    subscription: {
-      topics: [EKafkaTopics.ECOMMERCE_NEW_ORDER],
-    },
-    eachMessage: async ({ topic, partition, message }) => {
-      console.log("---------------------------------------------");
-      console.log("Processing new order, checking for a fraud...");
-      console.log({ topic, partition });
-      console.log({ value: message?.value?.toString() });
-    },
+  await kafkaService.consumer<Order>({
+    consumerConfig: { groupId: "fraud-detector-service" },
+    subscription: { topics: [EKafkaTopics.ECOMMERCE_NEW_ORDER] },
   });
 }
 

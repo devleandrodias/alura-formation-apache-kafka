@@ -3,18 +3,24 @@ import { randomUUID } from "node:crypto";
 
 import { EKafkaTopics } from "../configs/kafka.topics";
 import { KafkaService } from "../configs/kafka.service";
+import { Email } from "../entities/Email";
 
 async function run() {
   const kafkaService = new KafkaService();
 
   for (let index = 0; index < 10; index++) {
-    const key = randomUUID();
-    const value = "Thanks! We are processing your order!";
-    const messages: Message[] = [{ key, value }];
+    const userId = randomUUID();
+
+    const email: Email = new Email(
+      "Order in processing",
+      "Thanks! We are processing your order!"
+    );
+
+    const messages: Message[] = [{ key: userId, value: JSON.stringify(email) }];
 
     await kafkaService.producer({
-      topic: EKafkaTopics.ECOMMERCE_SEND_EMAIL,
       messages,
+      topic: EKafkaTopics.ECOMMERCE_SEND_EMAIL,
     });
   }
 }
