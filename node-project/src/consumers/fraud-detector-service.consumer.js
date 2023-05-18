@@ -1,6 +1,6 @@
 import { TOPICS } from "../topics.js";
 
-import { KafkaService } from "./KafkaService.js";
+import { KafkaService } from "../services/KafkaService.js";
 
 async function run() {
   const kafkaService = new KafkaService();
